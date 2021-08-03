@@ -1,0 +1,31 @@
+﻿
+/*Live Form Error style*/      
+.validation-summary-errors span{ font-size:18px; color:#2A303D; margin-bottom: 10px; display: Block; }
+.validation-summary-errors ul{ list-style-type:circle; margin-left:35px }
+.validation-summary-errors ul li {color:Red;display: block;float: none; }
+.error {
+    color:red
+    /*position: relative;
+    color: #fff;
+    display:inline-block;
+    background: #ff3e3ef7;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin: 0 0 2px;*/
+}
+/*.error:before{
+    content: '';
+    position: absolute;
+    display:block;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+    top: 100%;
+    left: 5px;
+    margin-top: -5px;
+    z-index: 10;
+    transform: rotate(45deg)
+
+}*/
+/**/     
+/**/     

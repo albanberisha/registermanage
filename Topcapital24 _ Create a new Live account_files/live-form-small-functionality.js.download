@@ -1,0 +1,30 @@
+﻿function exludelistFromLeverage(excludedList) {
+    var leverages = [];
+    spreadTypes = [];
+    accountTypes = [];
+    if (excludedList != null) {
+        for (var i = 0; i < excludedList.length; i++) {
+            if (excludedList[i].Type == "leverage") {
+                for (var j = 0; j < excludedList[i].Values.length; j++) {
+                    leverages.push(excludedList[i].Values[j].CodeType);
+                }
+            } else if (excludedList[i].Type == "account_type") {
+                for (var j = 0; j < excludedList[i].Values.length; j++) {
+                    accountTypes.push(excludedList[i].Values[j].CodeType);
+                }
+            } else if (excludedList[i].Type == "spread_type") {
+                for (var j = 0; j < excludedList[i].Values.length; j++) {
+                    spreadTypes.push(excludedList[i].Values[j].CodeType);
+                }
+            }
+        }
+        if (accountTypes.length == 0) accountTypes = "";
+        if (spreadTypes.length == 0) spreadTypes = "";
+        if (leverages.length == 0) leverages = "";
+
+    } else {
+        leverages = "";
+        spreadTypes = "";
+        accountTypes = "";
+    }
+}

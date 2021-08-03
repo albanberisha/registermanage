@@ -1,0 +1,28 @@
+﻿var maxExecutionTime = 1000;
+var executionDelay = 3;
+var currentExecutionTime = executionDelay;
+function CheckTicketProcessingStatus() {
+    console.log("Check Currency")
+    $.ajax({
+        url: '/en/AjaxUI/CheckIfTABaseCurrPresent',
+        method: 'GET',
+        dataType: 'json',
+        async: false,
+        success:
+            function (data) {
+                if (data != " " && data != "" && data != null) {
+                    console.log(data);
+                    return;
+                } else {
+                    if (currentExecutionTime < maxExecutionTime) {
+                        currentExecutionTime += executionDelay;
+                        setTimeout(CheckTicketProcessingStatus, executionDelay * 1000);
+                    }
+                }
+            },
+    });
+}
+
+$(document).ready(function () {
+    CheckTicketProcessingStatus();
+});

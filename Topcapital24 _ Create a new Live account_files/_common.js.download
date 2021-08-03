@@ -1,0 +1,28 @@
+//-----From string to bool----------
+String.prototype.bool = function() {
+    return (/^true$/i).test(this);
+};
+// -----------------------------------------
+// Extend function for loading custom button
+// -----------------------------------------
+$.fn.loadingBtn = function (options) {
+    var defaults = {
+        oldValue: $(this).html(),
+        newValue: "Loading...",
+        disable: true,
+    };
+    var settings = $.extend({}, defaults, options);
+
+    $(this).html(settings.newValue);
+    if (settings.disable)
+        $(this).attr("disabled", "disabled");
+
+    this.restore = function () {
+        $(this).html(settings.oldValue);
+        if (settings.disable)
+            $(this).removeAttr("disabled", "disabled");
+    }
+
+    return this;
+}
+// -----------------------------------------

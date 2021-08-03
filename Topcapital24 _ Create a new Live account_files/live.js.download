@@ -1,0 +1,802 @@
+var result;
+var FormWizard = function () {
+
+
+    return {
+        //main function to initiate the module
+        init: function (options) {
+            if (!jQuery().bootstrapWizard) {
+                return;
+            }
+
+            var form = $('#submit_form');
+            var error = $('.alert-danger', form);
+            var success = $('.alert-success', form);
+            $(document).ready(function () {
+                if ($("#submit_form").children().find('[type=radio]').first().is(":checked")) {
+                    $("#submit_form").children().find('[type=radio]').closest(".form-group")
+                        .find('[type=checkbox]').closest(".form-group").show();
+                } else if ($("#submit_form").children().find('[type=radio]').last().is(":checked")) {
+                    $("#submit_form").children().find('[type=radio]').closest(".form-group")
+                        .find('[type=checkbox]').closest(".form-group").hide();
+                }
+
+            });
+            $(function () {
+                $.each($("#submit_form").children().find('[type=checkbox]'), function (_, val) {
+                    if ($(val).closest(".form-group").find('[data-children]').children().size() > 0 && !$(val).is(":checked")) {
+                        $(val).closest(".form-group").find('[data-children]').hide();
+                    } else if ($(val).is(":checked")) {
+                        $(val).closest(".form-group").find('[data-children]').show();
+                    }
+                });
+                $("#submit_form").find("input,select").trigger("change");
+            });
+            //Function Check Children for checkboxes
+            //If checkboxes have children and he is not checked they will be hiden;
+            $(function () {
+                $.each($("#submit_form").children().find('[type=checkbox]'),
+                    function (_, val) {
+                        $(document).on("change",
+                            $(val),
+                            function () {
+                                if ($(val).closest(".form-group").find('[data-children]').children().size() > 0 &&
+                                    !$(val).is(":checked")) {
+                                    $(val).closest(".form-group").find('[data-children]').slideUp();
+                                } else if ($(val).is(":checked")) {
+                                    $(val).closest(".form-group").find('[data-children]').slideDown();
+                                }
+                            });
+                    });
+            });
+            //End Function
+            //Function Check Children for radio
+            //If radio have children and he is not checked they will be hiden;
+            $(function () {
+                $(document).on("change",
+                    $("#submit_form").children().find('[type=radio]').first(),
+                    function () {
+                        if ($("#submit_form").children().find('[type=radio]').first().is(":checked")) {
+                            $("#submit_form").children().find('[type=radio]').closest(".form-group")
+                                .find('[type=checkbox]').closest(".form-group").slideDown();
+                        } else if (!$("#submit_form").children().find('[type=radio]').first().is(":checked")) {
+                            $("#submit_form").children().find('[type=radio]').closest(".form-group")
+                                .find('[type=checkbox]').closest(".form-group").slideUp();
+                        }
+                    });
+            });
+
+            //End Function
+            function getMandatory() {
+                $.each($("#submit_form").find('[data-visible="false"]'), function (_, input) {
+                    $(input).hide();
+                });
+                var res = {};
+                $.each($("#submit_form").find('[data-mandatory="true"]'), function (_, input) {
+                    res[$(input).attr("id")] = {"required": true};
+                    if ($('#Email').attr('data-mandatory') == "true") {
+                        res['Email'] =
+                            {
+                                minlength: 5,
+                                "required": true,
+                                regxEmail: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,40})$/,
+                                validEmail: $("#Email").val()
+
+
+                            };
+                    }
+                });
+                $.each($("#submit_form").find('[data-confirm-field]'), function (_, input) {
+                    var depends = $(input).attr("data-confirm-field");
+                    res[$(input).attr("id")] = {"equalTo": "#" + depends};
+                });
+                return res;
+            }
+
+            function getRulesForForm() {
+                return deepmerge(
+                    {
+                        PhoneExtension: {
+                            /* minlength: 1*/
+                        },
+                        Phone: {
+                            minlength: 5,
+                            ValidNumber:$("#Phone").val(),
+                            validButton: $("#Phone")
+                        },
+                        VerificationCode: {
+                            VerifyCode: $("#VerificationCode").val()
+                        },
+                        City: {
+                            minlength: 2,
+                        },
+                        Address: {
+                            minlength: 5,
+                        },
+                        ZipCode: {
+                            minlength: 2,
+                        },
+                        ForexAverageFrequencyOfTransactions: {required: "#HasKnowledgeOfForexOrCfd:checked"},
+                        ForexAverageVolumeSizePerTransaction: {required: "#HasKnowledgeOfForexOrCfd:checked"},
+                        DerivativeProductsAverageFrequencyofTransactions: {
+                            required: "#UsesOtherDerivativeProducts:checked"
+                        },
+                        DerivativeProductsForexAverageVolumeSizePerTransaction: {
+                            required: "#UsesOtherDerivativeProducts:checked"
+                        },
+                        SecuritiesAverageFrequencyofTransactions: {required: "#HasSecurities:checked"},
+                        SecuritiesForexAverageVolumeSizePerTransaction: {required: "#HasSecurities:checked"},
+                        FuturesAverageFrequencyofTransactions: {required: "#Futures:checked"},
+                        FuturesForexAverageVolumeSizePerTransaction: {required: "#Futures:checked"},
+                        IdProofDocuments: {
+                            filesize: 5000000,
+                            maxitems: 3,
+                            accept: "application/pdf,image/*"
+                        },
+                        AddressProofDocuments: {
+                            filesize: 5000000,
+                            maxitems: 3,
+                            accept: "application/pdf,image/*"
+                        },
+                        CaptchaCode: {
+                            validCaptcha: $("#CaptchaCode").val()
+                        }
+                    },
+                    getMandatory());
+            }
+
+            form.validate({
+                ignore: ":not(:visible)",
+                doNotHideMessage: true, //this option enables to show the error/success messages on tab switch.
+                errorElement: 'div', //default input error message container
+                errorClass: "error",
+                focusInvalid: false, // do not focus the last invalid input
+                onkeyup: false,
+                debug: false,
+                onfocusout: function (element) {
+                    if ($(element).attr('id') != "Phone") {
+                        $(element).valid();
+                    }
+
+                },
+                rules: getRulesForForm(),
+
+                messages: {
+                    TitleKey: {
+                        required: window.globalLang.translationMessages.requiredFiled
+
+                    },
+                    Firstname: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    Lastname: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    Email: {
+                        minlength: window.globalLang.translationMessages.minLenght,
+                        required: window.globalLang.translationMessages.requiredFiled,
+                        validEmail: window.globalLang.translationMessages.emailExists,
+                        regxEmail: window.globalLang.translationMessages.validEmail
+                    },
+                    Email2: {
+                        minlength: window.globalLang.translationMessages.minLenght,
+                        required: window.globalLang.translationMessages.requiredFiled,
+                        equalTo: window.globalLang.translationMessages.confirmEmail,
+                        regxEmail: window.globalLang.translationMessages.validEmail
+                    },
+                    CountryKey: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    NationalityKey: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    PhoneExtension: {
+                        required: window.globalLang.translationMessages.requiredFiled,
+                        minlength: 1
+                    },
+                    Phone: {
+                        minlength: window.globalLang.translationMessages.minLenght,
+                        required: window.globalLang.translationMessages.requiredFiled,
+                        regxPhone: window.globalLang.translationMessages.invalidPhone
+                    },
+                    City: {
+                        minlength: window.globalLang.translationMessages.minLenghtCity,
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    Address: {
+                        minlength: window.globalLang.translationMessages.minLenght,
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    ZipCode: {
+                        minlength: window.globalLang.translationMessages.minLenghtCity,
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    AccountTypeKey: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    TradingSystemKey: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    AccountBaseCurrencyKey: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    LeverageKey: {
+                        required: window.globalLang.translationMessages.requiredFiled
+                    },
+                    EmploymentStatus: {required: window.globalLang.translationMessages.requiredFiled},
+                    EstimatedAnnualIncome: {required: window.globalLang.translationMessages.requiredFiled},
+                    EstimatedNetWorth: {required: window.globalLang.translationMessages.requiredFiled},
+                    ForexAverageFrequencyOfTransactions: {required: window.globalLang.translationMessages.requiredFiled},
+                    ForexAverageVolumeSizePerTransaction: {required: window.globalLang.translationMessages.requiredFiled},
+                    DerivativeProductsAverageFrequencyofTransactions: {required: window.globalLang.translationMessages.requiredFiled},
+                    DerivativeProductsForexAverageVolumeSizePerTransaction: {required: window.globalLang.translationMessages.requiredFiled},
+                    SecuritiesAverageFrequencyofTransactions: {required: window.globalLang.translationMessages.requiredFiled},
+                    SecuritiesForexAverageVolumeSizePerTransaction: {required: window.globalLang.translationMessages.requiredFiled},
+                    FuturesAverageFrequencyofTransactions: {required: window.globalLang.translationMessages.requiredFiled},
+                    FuturesForexAverageVolumeSizePerTransaction: {required: window.globalLang.translationMessages.requiredFiled},
+                    IdProofDocuments: {
+                        filesize: window.globalLang.translationMessages.fileSize,
+                        maxitems: window.globalLang.translationMessages.maxItems,
+                        accept: window.globalLang.translationMessages.invalidExtension
+                    },
+                    AddressProofDocuments: {
+                        filesize: window.globalLang.translationMessages.fileSize,
+                        maxitems: window.globalLang.translationMessages.maxItems,
+                        accept: window.globalLang.translationMessages.invalidExtension
+                    },
+                    Industry: {
+                        required: {
+                            required: window.globalLang.translationMessages.requiredFiled
+                        }
+                    },
+                    CaptchaCode: {
+                        required: window.globalLang.translationMessages.requiredFiled,
+                        validCaptcha: window.globalLang.translationMessages.wrongCaptcha
+                    }
+                },
+
+                errorPlacement: function (error, element) {
+                    if ($(element).attr('type') != "checkbox") {
+                        if (!options.iframe.bool()) {
+                            if ((element.attr('id') == "Phone" || element.attr('id') == "VerificationCode") && options.phoneSmsEnabled.bool()) {
+                                error.insertAfter(element.closest('.input-group'));
+                            } else {
+                                error.insertAfter(element);
+                            }
+                        }
+                        else if (options != undefined && options.iframe != undefined && options.iframe.bool() && options.phoneSmsEnabled.bool() && element.attr('id') == "Phone") {
+                            error.insertAfter(element.parent().parent().find('[data-error-message]'));
+                        }
+                        else {
+                            error.insertAfter(element.parent().parent().find('.container'));
+                        }
+                    }
+                },
+
+
+                invalidHandler: function (event, validator) {
+                    success.hide();
+                    error.show();
+                    App.scrollTo(error, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    if ($(element).attr('type') != "checkbox") {
+                        $(element)
+                            .closest('.form-group').removeClass('has-success')
+                            .addClass('has-error'); // set error class to the control group
+                    } else {
+                        $(element)
+                            .closest('.form-group').removeClass('has-success').addClass('has-error')
+                            .addClass('font-red'); // set error class to the control group
+                    }
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    if ($(element).attr('type') != "checkbox") {
+                        $(element)
+                            .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    } else {
+                        $(element)
+                            .closest('.form-group').removeClass('has-error')
+                            .removeClass('font-red'); // set error class to the control group
+                    }
+                },
+
+                success: function (label) {
+
+                },
+                submitHandler: function (form) {
+                    success.show();
+                    error.hide();
+                    form.submit();
+                    //add here some ajax code to submit your form or just call form.submit() if you want to submit the form without ajax
+                }
+
+            });
+
+            var handleTitle = function (tab, navigation, index) {
+                var total = navigation.find('li').length;
+                var current = index + 1;
+                // set wizard title
+                $('.step-title', $('#form_wizard_1')).text(window.globalLang.stepTranslate.stepTxt + (index + 1) + ' ' + window.globalLang.stepTranslate.ofTxt + total);
+                // set done steps
+                jQuery('li', $('#form_wizard_1')).removeClass("done");
+                var li_list = navigation.find('li');
+                for (var i = 0; i < index; i++) {
+                    jQuery(li_list[i]).addClass("done");
+                }
+
+                if (current == 1) {
+                    $('#form_wizard_1').find('.button-previous').hide();
+                } else {
+                    $('#form_wizard_1').find('.button-previous').show();
+                }
+
+                if (current >= total) {
+                    $('#form_wizard_1').find('.button-next').hide();
+                    $('#form_wizard_1').find('.button-submit').show();
+                } else {
+                    $('#form_wizard_1').find('.button-next').show();
+                    $('#form_wizard_1').find('.button-submit').hide();
+                }
+                App.scrollTo($('.page-title'));
+            }
+
+            // default form wizard
+            $('#form_wizard_1').bootstrapWizard({
+                'nextSelector': '.button-next',
+                'previousSelector': '.button-previous',
+                onTabClick: function (tab, navigation, index, clickedIndex) {
+                    success.hide();
+                    error.hide();
+                    if (form.valid() == false) {
+                        return false;
+                    }
+                    if (index + 1 !== clickedIndex) {
+                        return false;
+                    }
+                    handleTitle(tab, navigation, clickedIndex);
+                },
+                onNext: function (tab, navigation, index) {
+                    success.hide();
+                    error.hide();
+                    if (form.valid() == false) {
+                        return false;
+                    }
+                    handleTitle(tab, navigation, index);
+                },
+                onPrevious: function (tab, navigation, index) {
+                    success.hide();
+                    error.hide();
+
+                    handleTitle(tab, navigation, index);
+                },
+                onTabShow: function (tab, navigation, index) {
+                    var total = navigation.find('li').length;
+                    var current = index + 1;
+                    var $percent = (current / total) * 100;
+                    $('#form_wizard_1').find('.progress-bar').css({
+                        width: $percent + '%'
+                    });
+                    handleTitle(tab, navigation, index);
+                }
+            });
+
+            $('#form_wizard_1').find('.button-previous').hide();
+            //$('#form_wizard_1 .button-submit').click(function () {
+
+            //}).hide();
+        }
+    };
+}();
+
+
+$(function () {
+    $.validator.addMethod('filesize', function (value, element, param) {
+        if (this.optional(element))
+            return true;
+        else if (element.files == null || element.files.length == 0) {
+            return true;
+        }
+        else {
+            for (i = 0; i < element.files.length; i++) {
+                if (element.files[i].size > param)
+                    return false;
+            }
+            return true;
+        }
+    }, "The size of the file you have selected if higher than the allowed size of 5 MB's");
+
+    $.validator.addMethod('validCaptcha', function (value, element, param) {
+        var captchaObj = $("#CaptchaCode").get(0).Captcha;
+        CaptchaId = captchaObj.Id;
+        InstanceId = captchaObj.InstanceId;
+        UserInput = $("#CaptchaCode").val();
+        var isValid;
+        $.ajax({
+            type: 'GET',
+            url: '/en/AjaxUI/CheckCaptcha',
+            data: {
+                userInput: UserInput,
+                captchaId: CaptchaId,
+                instanceId: InstanceId
+            },
+            dataType: 'json',
+            async: false,
+            success:
+                function (data) {
+                    if (data == false)
+                        captchaObj.ReloadImage();
+                    isValid = data == true;
+                }
+        });
+
+        return isValid;
+    });
+
+    $.validator.addMethod('maxitems', function (value, element, param) {
+        return this.optional(element) || (element.files.length <= param)
+    }, jQuery.validator.format("You are only allowed to upload {0} files of each type"));
+
+    $(function () {
+        $.validator.addMethod('validEmail', function (value, element, param) {
+            //if (param.val() == "")
+            //    return false;
+
+            var isValid;
+            $.ajax({
+                type: 'POST',
+                url: '/en/LiveAccount/CheckEmail',
+                data: {
+                    email: $("#Email").val()
+                },
+                dataType: 'json',
+                async: false,
+                success:
+                    function (data) {
+                        isValid = data;
+                    }
+            });
+            if (!isValid) {
+                $("#emailExists").show();
+            } else {
+                $("#emailExists").hide();
+            }
+
+            return isValid;
+        });
+        
+        $.validator.addMethod('validButton',
+            function () {
+                if ($("#VerificationCode").size() > 0) {
+                    if ($("#VerificationCode").val() == "") {
+                        return false;
+                    }
+                    return $("#VerificationCode").attr("data-valid") == "true";
+                } else {
+                    return true;
+                }
+            },
+            "Please send verification SMS");
+
+        $.validator.addMethod('ValidNumber',
+            function (value) {
+                var phoneExtension = $("#PhoneExtension").val();
+                var isValid = false;
+                $.ajax({
+                    type: 'POST',
+                    url: '/en/LiveAccount/SendPhoneValidationInfo',
+                    data: {
+                        phoneNumber: phoneExtension + value
+                    },
+                    dataType: 'json',
+                    async: false,
+                    success:
+                        function (data) {
+                            isValid = data.Response.bool();
+                        },
+                });
+                return isValid;
+            },
+            window.globalLang.form.phoneFormatError);
+
+        $.validator.addMethod('VerifyCode',
+            function (value) {
+                var guidcode = $("#VerificationCodeGuid").val();
+                var isValid = false;
+                $.ajax({
+                    type: 'POST',
+                    url: '/en/LiveAccount/CheckValidCodeConfirmation',
+                    data: {
+                        code: value,
+                        guid: guidcode,
+                        phone: $("#PhoneExtension").val() + $("#Phone").val()
+                    },
+                    dataType: 'json',
+                    async: false,
+                    success:
+                        function (data) {
+                            if (data.Response) {
+                                $("#VerificationCode").attr("data-valid", true);
+                                isValid = true;
+                                return true;
+                            }
+                            return false;
+                        }
+                });
+                return isValid;
+            },
+            window.globalLang.form.codeGuidFailded);
+    });
+
+    //$(document).on("change key up",
+    //    $("#Phone"),
+    //    function () {
+
+
+    // });
+
+
+    //$(document).on("change key up",
+    //    $("#VerificationCode"),
+    //    function () {
+
+
+    //});
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+
+    $('#TradingSystemKey').change(function () {
+        var accountType = '';
+        if ($(this).val().length != 0) {
+            var urlVars = getUrlVars();
+            accountType = urlVars.accType;
+            $.post("/en/AjaxUI/GetTradingSystemDetails",
+                {
+                    key: tradingField(),
+                    excludedAccountTypes: window.accountTypes,
+                    excludedSpreadTypes: window.spreadTypes,
+                    lang: window.globalLang.lang.currentLangCulture
+                },
+                function (data) {
+                    if (data.AccountTypeList != null) {
+                        populateDropDown($('#AccountTypeKey'), data.AccountTypeList);
+
+                        $.each(data.AccountTypeList,
+                            function (value, key) {
+                                if (value === accountType) {
+                                    $('#AccountTypeKey').empty();
+                                    $('#AccountTypeKey').append($('<option></option>').val(value).html(key));
+                                    return;
+                                }
+                            });
+                        $('#AccountTypeKey').trigger("change");
+                    }
+                });
+        }
+    });
+
+
+    $(function () {
+        if ($('#TradingSystemKey').size() < 1 || !$('#TradingSystemKey').is(":visible")) {
+            var accountType = '';
+            var urlVars = getUrlVars();
+            accountType = urlVars.accType;
+            $.post("/en/AjaxUI/GetTradingSystemDetails",
+                {
+                    key: tradingField(),
+                    excludedAccountTypes: window.accountTypes,
+                    excludedSpreadTypes: window.spreadTypes,
+                    lang: window.globalLang.lang.currentLangCulture
+                },
+                function (data) {
+                    if (data.AccountTypeList != null) {
+                        populateDropDown($('#AccountTypeKey'), data.AccountTypeList);
+
+                        $.each(data.AccountTypeList,
+                            function (value, key) {
+                                if (value === accountType) {
+                                    var select = $('#AccountTypeKey').first('[option]');
+                                    $('#AccountTypeKey').empty();
+                                    $('#AccountTypeKey').append(select);
+                                    $('#AccountTypeKey').append($('<option></option>').val(value).html(key));
+                                    return;
+                                }
+                            });
+                        $('#AccountTypeKey').trigger("change");
+                    }
+                });
+
+        }
+    });
+
+    $('input[name=WorkedInForex]').change(function () {
+        if ($('#WorkedInForexYes').is(':checked')) {
+            $('.kycField').show();
+            $('#uniform-HasKnowledgeOfForexOrCfd, #uniform-UsesOtherDerivativeProducts, #uniform-HasSecurities, #uniform-Futures').trigger('change');
+        }
+        else {
+            $(".kycField").hide();
+        }
+    });
+
+    $('#EmploymentStatus').change(function () {
+        if ($(this).val() === "Employed" || $(this).val() === "Self Employed") {
+            $('#Industry').closest(".form-group").slideDown();
+            $('#Industry').trigger('change');
+        }
+        else {
+            $('#Industry').closest(".form-group").slideUp();
+            $('#OtherIndustry').closest(".form-group").hide();
+        }
+    });
+
+    $('#Industry').change(function () {
+        if ($(this).val() === "Other Industry") {
+            $('#OtherIndustry').closest(".form-group").slideDown();
+        }
+        else {
+            $('#OtherIndustry').closest(".form-group").hide();
+        }
+    });
+    $('#AccountTypeKey').change(function () {
+        if ($(this).val() && tradingField()) {
+            $.post("/en/AjaxUI/GetAccountTypeLeverages",
+                {
+                    tradSyst: tradingField(),
+                    accType: $(this).val(),
+                    excludededLeverages: window.leverages
+                },
+                function (data) {
+                    if (data.Leverages != null) {
+                        var oldVal = $('#LeverageKey').val();
+                        var defaultVal = data.Default;
+                        $('#LeverageKey').empty();
+                        $('#LeverageKey').append($('<option></option>').val('').html(window.globalLang.form.defaultSelection));
+
+                        $.each(data.Leverages, function (value, key) {
+                            $('#LeverageKey').append($('<option></option>').val(value).html(key));
+                            if (value == oldVal) {
+                                $("#LeverageKey").val(value);
+                            }
+                        });
+
+                        if ($("#LeverageKey").val() == '' && defaultVal != null) {
+                            $("#LeverageKey").val(defaultVal.Key);
+                        }
+                    }
+                });
+        }
+    });
+
+    $(function () {
+        $("#submit_form").children().find('[id]').trigger("change");
+
+    });
+    $('#CountryKey').change(SetPhoneExtension);
+    $("#IdProofDocuments").change(function () {
+        $(this).valid();
+    });
+    $("#AddressProofDocuments").change(function () {
+        $(this).valid();
+    });
+    $('#WorkedInForexYes, #EmploymentStatus, #Industry').trigger('change');
+    $("#IdProofDocuments").change(function () {
+        $(this).valid();
+    });
+    $("#AddressProofDocuments").change(function () {
+        $(this).valid();
+    });
+    $('#submit_form input[type="text"]').focusout(saveForm);
+    $('#submit_form select').change(saveForm);
+
+});
+
+function saveForm() {
+    $.post("/en/Forms/LiveAccount/Save", $('#submit_form').serialize());
+}
+
+function SetPhoneExtension() {
+    var code = $('#CountryKey').val();
+    var extension = $('#PhoneExtension').val();
+    if (code != '' && extension === '') {
+        $.get("/en/AjaxUI/PhoneExtension", {isoCode: code}).success(function (data) {
+            $('#PhoneExtension').val(data["Value"]).valid();
+        });
+    } else {
+        $('#PhoneExtension').removeAttr("readonly");
+    }
+}
+
+$.validator.addMethod("regxEmail", function (value, element, regexpr) {
+    return regexpr.test(value);
+});
+
+$.validator.addMethod("regxPhone", function (value, element, regexpr) {
+    return regexpr.test(value);
+});
+
+//If TradingSystemField is not will automaticaly prefill the field
+function tradingField() {
+    var platform;
+    if ($("#TradingSystemKey").size() < 1 || $("#TradingSystemKey").val() == "") {
+        platform = "MT4";
+
+    } else if (!$("#TradingSystemKey").is(":visible")) {
+        platform = $("#TradingSystemKey").attr("value", "MT4").val();
+
+    } else {
+        platform = $("#TradingSystemKey").val();
+
+    }
+    return platform;
+};
+
+$("#verification-btn").on("click",
+    function () {
+
+        var phoneExtension = $("#PhoneExtension").val();
+        var phone = $("#Phone").val();
+        if (phoneExtension == undefined || phoneExtension == "" || phone == undefined || phone == "") {
+            var validator = $("#submit_form").validate();
+            validator.element("#Phone");
+            validator.element("#PhoneExtension");
+            validator.showErrors({
+                "Phone": "Please enter your phone number!"
+            });
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/en/LiveAccount/SendPhoneSmsVerification',
+            data: {
+                phoneNumber: phoneExtension + phone
+            },
+            dataType: 'json',
+            async: false,
+            success:
+                function (data) {
+                    if (data.Response == "Undefined" || data.Response == "True") {
+                        $('.input-group').find('#PhoneValidation').removeClass('hidden');
+                        checkOutTime(60);
+                        $("#VerificationCodeGuid").val(data.Guid);
+                    } else {
+                        $("#submit_form").validate().showErrors({
+                            "Phone": data.Msg
+                        });
+                    }
+                },
+            fail: function (data) {
+
+            }
+
+        });
+    });
+
+function checkOutTime(time) {
+    if (time < 0) {
+        $("#verification-btn").html($("#verification-btn").attr("data-original-text"));
+        return;
+    }
+    $("#verification-btn").html('<i class="fa fa-spin fa-spinner"></i> ' + time);
+    setTimeout(function () {
+        checkOutTime(--time);
+    }, 1000);
+}
+
+$(function () {
+    $("#ReferralCode").val(window.refCode);
+    $("#EmployeeCode").val(window.erefCode);
+});
+

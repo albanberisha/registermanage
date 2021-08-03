@@ -1,0 +1,16 @@
+﻿$('#submit_form')
+    .on('focusin',
+        ':input',
+        function() {
+            $(this).prev('span').addClass('is-focused');
+        })
+    .on('focusout',
+        ':input',
+        function() {
+            $(this).prev('span').removeClass('is-focused');
+        });
+$(function() {
+    $('input,span,select,button').each(function(_, val) {
+        $(val).addClass("font-size-iframe");
+    });
+});

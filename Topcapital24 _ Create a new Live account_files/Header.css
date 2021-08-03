@@ -1,0 +1,63 @@
+﻿/*#region Header field*/
+
+.page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo .logo-default {
+        display: block !important;
+        margin: 114px 0 0 0 !important;
+        position: absolute;
+    }
+
+@media screen and (min-width: 767px) {
+    .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo .logo-default {
+        display: block !important;
+        margin: 10px 0 0 290px !important;
+        position: absolute;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-header.navbar .page-logo .logo-default {
+        margin: 90px 50px 0 0 !important;
+        right: 75px !important;
+        position: absolute;
+    }
+}
+
+@media only screen and (max-width: 304px) {
+    .page-header.navbar .page-logo .logo-default {        
+        right: 75px !important;
+        position: absolute !important;
+    }
+
+    .page-actions {
+        bottom: 75px;
+        position: relative;
+    }    
+}
+
+@media only screen and (max-width: 310px) {
+    body {
+        min-width: 290px;
+        overflow: auto;
+        overflow-y: scroll;
+        -ms-overflow-y: scroll;
+    }
+}
+/*#endregion*/
+
+/*#region Header Lines positions*/
+@media only screen and (max-width: 991px) {
+    .linePosition {
+        top: -17px;
+    }
+}
+
+@media only screen and (max-width: 767px) {    
+    .secondLinePosition {
+        margin-top: -24px!important;
+    }
+}
+/*#endregion*/
+
+.margin-left-20 {
+    margin-left: 20px !important;
+}

@@ -1,0 +1,149 @@
+﻿function GetUserPendingNotifications() {
+    $.ajax({
+        type: 'GET',
+        url: '/en/AjaxUI/GetUserPendingNotifications',
+        data: {
+            lang: window.lang
+        },
+        dataType: 'json',
+        async: true,
+        success:
+            function (data) {
+                 $("#pendingNotificationsCount").text(data.length);
+                 $("#pendingNotificationsCount1").text(data.length);
+                 $("#notificationsTopList").empty();
+                 for (var i = 0; i < data.length; i++)
+                    $("#notificationsTopList").append(AddUderPendingNotification(data[i]));
+            },
+        error: function () {
+            $("#notificationSubject").empty().append(window.errorMessage);
+        }
+
+    });
+}
+
+setTimeout(GetUserPendingNotifications, 10000);
+
+function AddUderPendingNotification(data) {
+    return '<li class="notificationItem" id="'+data.Key.Id+'">'+
+                '<input type="hidden" class="notificationId" name="notificationId" value="' + data.Key.Id + '">' +
+                    '<a class="viewNotification" data-toggle="modal" href="#notificationDetails">'+
+                        '<span class="time">' + data.Value + '</span>' +
+                        '<span class="details">' + GetNotificationIcon(data.Key.Type) + "  " + data.Key.Subject + '</span>' +
+                    '</a>'+
+            '</li>';
+}
+
+$(document).ready(function () {
+    GetUserPendingNotifications();
+    $('body').on('click', '.viewNotification', function () {
+        var notificationId = $(this).closest(".notificationItem").find(".notificationId").val();
+        ProcessNotification(notificationId);
+    });
+});
+
+function ToJavaScriptDate(value) {
+    var dateString = value.substr(6);
+    var currentTime = new Date(parseInt(dateString));
+    var day = currentTime.getDate();
+    var month = currentTime.getMonth();
+    var year = currentTime.getFullYear();
+    var hour = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+    return new Date(year, month, day, hour, minutes);
+}
+
+function GetNotificationIcon(notificationType) {
+    switch (notificationType) {
+        case "Reminder":
+            return "<div class='label label-lg label-danger'>" +
+            "<i class='fa fa-bell-o'></i>" +
+            "</div>";
+        case "Request":
+            return "<div class='label label-lg label-success'>" +
+                "<i class='fa fa-info-circle'></i>" +
+                "</div>";
+        case "Maintenance":
+            return "<div class='label label-lg label-info'>" +
+                "<i class='fa fa-wrench'></i>" +
+                "</div>";
+        case "Announcement":
+           return "<div class='label label-lg label-warning'>" +
+                "<i class='fa fa-bullhorn'></i>" +
+                "</div>";
+        default:
+            return "<div class='label label-lg label-danger'>" +
+                "<i class='fa fa-bell-o'></i>" +
+                "</div>";
+    }
+}
+
+function AddNotificationIcon(notificationType) {
+    switch (notificationType) {
+        case "Reminder":
+            $("#notificationIcon").empty().append("<div class='label label-lg label-danger'>" +
+            "<i class='fa fa-bell-o'></i>" +
+            "</div>");
+            break;
+        case "Request":
+            $("#notificationIcon").empty().append("<div class='label label-lg label-success'>" +
+                "<i class='fa fa-info-circle'></i>" +
+                "</div>");
+            break;
+        case "Maintenance":
+            $("#notificationIcon").empty().append("<div class='label label-lg label-info'>" +
+                "<i class='fa fa-wrench'></i>" +
+                "</div>");
+            break;
+        case "Announcement":
+            $("#notificationIcon").empty().append("<div class='label label-lg label-warning'>" +
+                "<i class='fa fa-bullhorn'></i>" +
+                "</div>");
+            break;
+        default:
+            $("#notificationItem").empty().append("<div class='label label-lg label-danger'>" +
+                "<i class='fa fa-bell-o'></i>" +
+                "</div>");
+    }
+}
+
+function ProcessNotification(notificationId) {
+    $.ajax({
+        type: 'POST',
+        url: '/en/AjaxUI/GetNotificationById',
+        data: {
+            notificationId: notificationId,
+            lang: window.lang
+        },
+        dataType: 'json',
+        async: true,
+        success:
+            function (data) {
+                $('#notificationSubject').empty().append("&nbsp;" + (data.Subject != null ? data.Subject: ""));
+                $('#notificationContent').empty().append("&nbsp;" + (data.Content != null ? data.Content: ""));
+                AddNotificationIcon(data.Type);
+                $.ajax({
+                    type: 'POST',
+                    url: '/en/AjaxUI/MarkNotificationAsRead',
+                    data: {
+                        notificationId: notificationId
+                    },
+                    dataType: 'json',
+                    async: true,
+                    success:
+                        function(data) {
+                            if (data == true) {
+                                $('#' + notificationId).remove();
+                                var pendingNotificationsCount = $('#pendingNotificationsCount').text();
+                                pendingNotificationsCount--;
+                                $('.pendingNotificationsCount').text(pendingNotificationsCount);
+                                $('#' + notificationId).css("font-weight", "normal");
+                            }
+                        }
+            });
+            },
+        error: function () {
+            $('#notificationSubject').empty().append(window.errorMessage);
+        }
+    });
+}

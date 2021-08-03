@@ -1,0 +1,19 @@
+﻿function populateDropDown(outDd, dictionData, defaultKeyVal) {
+    var oldVal = outDd.val();
+    clearDropDown(outDd);
+    $.each(dictionData, function (value, key) {
+        outDd.append($('<option></option>').val(value).html(key));
+        if (value === oldVal) {
+            outDd.val(value);
+        }
+    });
+
+    if (defaultKeyVal && outDd.val() === "") {
+        outDd.val(defaultKeyVal.Key);
+    }
+}
+
+function clearDropDown(outDd) {
+    outDd.empty();
+    outDd.append($('<option>[Select]</option>').val('').html(window.allAccLbl));
+}

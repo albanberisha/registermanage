@@ -1,0 +1,101 @@
+/* here you can put your own css to customize and override the theme */
+
+/***
+Rounded Portlets
+***/
+/*
+.portlet {
+	border-radius: 4px !important;
+}
+
+.portlet .portlet-title {
+	border-radius: 4px 4px 0px 0px !important;
+}
+
+.portlet .portlet-body,
+.portlet .portlet-body .form-actions  {
+	border-radius: 0px 0px 4px 4px !important;
+}
+*/
+
+.page-header.navbar .page-logo .logo-default {
+   margin: 2px 0px 0 0px;
+    height: 65px;
+    float: left;
+}
+
+.page-footer .page-footer-inner {
+    float: none;
+    display: inline-block;
+}
+
+
+.dashboard-stat2 .display small {
+  font-size: 10px;
+  color: #AAB5BC;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.alert {
+    padding: 5px;
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+.display-table{
+    display: table;
+    table-layout: fixed;
+}
+
+.display-cell{
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+}
+
+.download-inline-head-logo {
+    float: left;
+    display: block;
+    margin-right: 20px;
+    height: 55px;
+    width: 55px;
+}
+
+.download-app-logo-box {
+    width:100%;
+    height: 150px;
+    background-color: #e6e6fa;  
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.download-app-logo-box img {
+    height: 100%;
+    margin: auto;
+}
+
+.document-info-wrapper {
+    padding-left: 55px;
+    max-height: 50px;
+    height: 50px;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+div.pdf-document {
+    background-image: url("/Content/images/site/icons/pdf-icon.png");
+    background-repeat: no-repeat;
+}
+
+div.doc-document {
+    background-image: url("/Content/images/site/icons/doc-icon.png");
+    background-repeat: no-repeat;
+}
+
+div.rtf-document {
+    background-image: url("/Content/images/site/icons/rtf-icon.png");
+    background-repeat: no-repeat;
+}
