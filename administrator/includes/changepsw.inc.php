@@ -28,7 +28,6 @@ function  updatepsw($con,$newpsw,$myid)
 $stmt = $con->prepare("UPDATE users SET password=?,lastupdated=? WHERE id=?");
 $stmt->bind_param('ssi', $newpsw,$now, $myid);
 $stmt->execute();
-$stmt->execute(); 
 echo "Data updated successfully";
 /* close statement */
 $stmt->close(); 

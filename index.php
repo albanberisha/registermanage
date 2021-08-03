@@ -1,3 +1,13 @@
+
+<?php
+$val=NULL;
+if (isset($_GET['reg'])) {
+    $val = $_GET['ref'];
+}
+?>
+
+
+
 <!------ Include the above in your HEAD tag ---------->
 <!DOCTYPE html>
 
@@ -8,7 +18,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="js/loginform.js"></script>
-
+    
 </head>
 
 <body>
@@ -453,6 +463,22 @@
                                                         </span>
                                                     </div>
                                                 </div>
+                                                <div id="Codee" class="form-group" data-visible="true">
+                                                    <div class="row col-md-12">
+                                                        <label class="control-label col-md-4">
+                                                            Referral Code
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control font-size-iframe" data-field-dependency="0" data-mandatory="false" data-visible="true" id="EmployeeCode" name="EmployeeCode" type="text" value="<?php echo $val ?>"> 
+                                                            <span id="Codeerror" class="help-block font-size-iframe">
+                                                                Code of your Referral
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12" data-children="">
+
+                                                    </div>
+                                                </div>
 
                                             </div>
                                             <!-- If field has confirmation will be repeated but some values will be changed-->
@@ -510,13 +536,13 @@
                                             </div>
                                             <!-- If field has confirmation will be repeated but some values will be changed-->
                                             <!-- End of confirmation field-->
-                                       
 
-                                        <div id="vtr4" class="row col-md-12">
-                                            <div class="col-md-offset-4 col-md-4">
-                                                <input type="submit" name="register-submit" id="Register-submit" tabindex="4" class="form-control btn btn-login" value="Sumbit">
+
+                                            <div id="vtr4" class="row col-md-12">
+                                                <div class="col-md-offset-4 col-md-4">
+                                                    <input type="submit" name="register-submit" id="Register-submit" tabindex="4" class="form-control btn btn-login" value="Sumbit">
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                 </form>
@@ -610,7 +636,7 @@
                         });
                         break;
                     default:
-                        window.location.href=response;
+                        window.location.href = response;
                 }
             });
         return false;
@@ -635,6 +661,7 @@
         $('#Cntry').removeClass('has-error');
         $('#Phn').removeClass('has-error');
         $('#AccTp').removeClass('has-error');
+        $('#Codee').removeClass('has-error');
 
         try {
             $.getJSON('https://api.db-ip.com/v2/free/self', function(data) {
@@ -693,6 +720,7 @@
         $('#AccTpError').html("Select account type");
         $('#cond1').html("");
         $('#cond2').html("");
+        $('#Codeerror').html("Code of your Referral");
 
         $.ajax({
                 url: "includes/register.php",
@@ -847,9 +875,22 @@
                             inline: "nearest"
                         });
                         break;
+                    case "12":
+                        var x = document.getElementById("registerErrors");
+                        x.style.display = "block";
+                        $message = "This code does not exists ";
+                        $('#Codee').addClass('has-error');
+                        $('#Codeerror').html($message);
+                        var element = document.getElementById("EmployeeCode");
+                        element.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                            inline: "nearest"
+                        });
+                        break;
 
                     default:
-                        //alert(response);
+                       // alert(response);
                         var x = document.getElementById("regError");
                         x.style.display = "none";
                         var x = document.getElementById("successRegister");
@@ -862,7 +903,7 @@
                         $('#vtr').html("");
                         $('#vtr3').html("");
                         $('#vtr4').html("");
-                        
+
 
                         //window.location.href = response;
                 }
@@ -894,3 +935,19 @@
         );
     }
 </script>
+<script type="text/javascript">
+    $val='<?php echo $val; ?>';
+    
+    if($val==='')
+    {
+        
+    }else{
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("register-form").style.display = "block";
+        document.getElementById("register-form").style.display = "block";
+        
+        $('#login-form-link').removeClass('active');
+        $('#register-form-link').addClass('active');
+        $('#wide-class').removeClass('col-md-6 col-md-offset-3');
+    }
+    </script>

@@ -21,13 +21,40 @@ function searchUsers($con, $name, $myid)
   } else {
 ?>
  <?php
-                        $queryusers = mysqli_query($con, "SELECT * from users where privilege!='2' and fname='$name' order by fname,lname ASC limit 30");
+                        $queryusers = mysqli_query($con, "SELECT * from users where privilege!='2' and fname LIKE '%$name%' OR employeeCode LIKE '$name'  order by fname,lname ASC limit 30");
                         if (!$queryusers) {
                             die("E pamundur te azhurohen te dhenat: " . mysqli_connect_error());
                         } else {
                             $count3 = 1;
+                            $rowcount=mysqli_num_rows($queryusers);
+                         
+                            ?>
+                            <div class="user-specs" style="padding: 0 0 10px 0;" id="User-Profiles">
+                                                <div class="" style="margin-top: 10px; margin-bottom: 10px;">
+                                            <span>Users searched:</span>
+
+                                                    <span class="bold-span">
+                                                        <?php
+                                                        echo $rowcount;
+                                                        ?>
+                                                    </span>
+
+                                                
+                                          
+
+                                            </div>
+                            <?php
+                        
+                            ?>
+                                            <div class="companies-list">
+
+                            <div class="row">
+                            <?php
+                 
                             while (($datausers = mysqli_fetch_array($queryusers))) {
+                                
                         ?>
+                        
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                     <div class="company_profile_info">
                                         <div class="company-up-info">
@@ -46,7 +73,29 @@ function searchUsers($con, $name, $myid)
                                                 ?></h3>
                                             <span>Account type:</span>
                                             <span class="bold-span"><?php echo htmlentities($datausers['acctype']) ?></span>
+                                            <div class="" style="margin-top: 10px;">
+                                            <span>Referral code:</span><br>
 
+                                                    <span class="bold-span">
+                                                    <?php
+                                                    
+                                                    $myrreferalcode=$datausers['myemployeeCode'];
+                                                    echo htmlentities($myrreferalcode) ?>
+                                                    </span>
+
+                                                
+                                            </div>
+                                            <div class="" style="margin-top: 10px;">
+                                            <?php
+                                             $uip=$_SERVER['REMOTE_ADDR']; // get the user ip
+                                             $host = $_SERVER['HTTP_HOST'];
+                                             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                                             $extra = "../../index.php"; //
+                                             $reglink="http://".$host.$uri."/".$extra."?ref=".$myrreferalcode."&reg=register";
+?>
+                                            <span>Share registration link:</span> <a onclick="copyVal('<?php echo $reglink ?>')" href="#" title=""><i class="fa fa-minus-copy"></i> Copy</a>
+<br>
+                                            </div>
                                             <div class="top-span">
                                                 <span>Status:</span>
                                                 <?php
@@ -87,11 +136,16 @@ function searchUsers($con, $name, $myid)
 
                                         ?>
                                         <a href="user-profile.php?id=<?php echo $plaintext ?>&view=user">View Profile</a>
-                                    </div>
+                                        </div>
                                 </div>
                         <?php
 
                             }
+                            ?>
+                            </div>
+                </div>
+                </div>
+                            <?php
                         }
 
                         ?>

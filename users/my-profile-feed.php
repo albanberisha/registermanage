@@ -36,7 +36,7 @@ if (!$query) {
         $pofit = $data2['profit'];
         $gender = $data2['gender'];
         $phone = $data2['phone'];
-
+        $myrreferalcode = $data2['myemployeeCode'];
         $last_space = strrpos($phone, ' ');
         $last_word = substr($phone, $last_space);
         $first_chunk = substr($phone, 0, $last_space);
@@ -143,6 +143,26 @@ if (!$query) {
                                                     ?></h3>
                                                 <span>Account type:</span>
                                                 <span class="bold-span"><?php echo htmlentities($acctype) ?></span>
+                                                <div class="" style="margin-top: 10px;">
+                                            <span>My referral code:</span><br>
+
+                                                    <span class="bold-span">
+                                                    <?php echo htmlentities($myrreferalcode) ?>
+                                                    </span>
+
+                                            </div>
+                                            <div class="" style="margin-top: 10px;">
+                                            <?php
+                                             $uip=$_SERVER['REMOTE_ADDR']; // get the user ip
+                                             $host = $_SERVER['HTTP_HOST'];
+                                             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                                             $extra = "../../index.php"; //
+                                             $reglink="http://".$host.$uri."/".$extra."?ref=".$myrreferalcode."&reg=register";
+?>
+                                            <span>Share registration link:</span> <a onclick="copyVal('<?php echo $reglink ?>')" href="#" title=""><i class="fa fa-minus-copy"></i> Copy</a>
+<br>
+                                            </div>
+                                            
                                             </div>
                                         </div>
                                     </div>
@@ -741,6 +761,17 @@ if (!$query) {
 
 </html>
 <script>
+    function copyVal(copyText2)
+    {
+      updateClipboard(copyText2);
+    }
+    function updateClipboard(newClip) {
+  navigator.clipboard.writeText(newClip).then(function() {
+    /* clipboard successfully set */
+  }, function() {
+    /* clipboard write failed */
+  });
+}
     $("#coverpicvure-form").submit(function(e) {
         e.preventDefault();
 

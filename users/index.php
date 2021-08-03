@@ -30,11 +30,13 @@ if (!$query) {
         $acctype = $data2['acctype'];
         $profilephoto = $data2['photo'];
         $pofit = $data2['profit'];
+        $myrreferalcode = $data2['myemployeeCode'];
     } else {
         echo "Hyrje e pa autorizuar";
         exit;
     }
 }
+
 //error_reporting($__error_reporting_level);
 ?>
 <html>
@@ -97,7 +99,28 @@ if (!$query) {
                                                     ?></h3>
                                                 <span>Account type:</span>
                                                 <span class="bold-span"><?php echo htmlentities($acctype) ?></span>
+                                                <div class="" style="margin-top: 10px;">
+                                                    <span>My referral code:</span><br>
+
+                                                    <span class="bold-span">
+                                                        <?php echo htmlentities($myrreferalcode) ?>
+                                                    </span>
+
+
+                                                </div>
+                                                <div class="" style="margin-top: 10px;">
+                                            <?php
+                                             $uip=$_SERVER['REMOTE_ADDR']; // get the user ip
+                                             $host = $_SERVER['HTTP_HOST'];
+                                             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                                             $extra = "../../index.php"; //
+                                             $reglink="http://".$host.$uri."/".$extra."?ref=".$myrreferalcode."&reg=register";
+?>
+                                            <span>Share registration link:</span> <a onclick="copyVal('<?php echo $reglink ?>')" href="#" title=""><i class="fa fa-minus-copy"></i> Copy</a>
+<br>
                                             </div>
+                                            </div>
+
                                         </div>
                                         <ul class="user-fw-status">
                                             <li>
@@ -139,8 +162,58 @@ if (!$query) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-md-8 no-pd">
 
+                            <div class="col-lg-9 col-md-8 no-pd">
+                                <section style="padding-bottom: 50px; " class="row-full clearfix  pv-60 content-home mobileoff">
+                                    <div class="container" style="padding: 0px;">
+                                        <div class="tradingview-widget-container">
+                                            <div class="tradingview-widget-container__widget"></div>
+                                            <p>
+                                            <div style="">
+                                                <style>
+                                                    .tradingview-widget-copyright {
+                                                        font-size: 13px !important;
+                                                        line-height: 32px !important;
+                                                        text-align: center !important;
+                                                        vertical-align: middle !important;
+                                                        font-family: 'Trebuchet MS', Arial, sans-serif !important;
+                                                        color: #9db2bd !important;
+                                                    }
+
+                                                    .tradingview-widget-copyright .blue-text {
+                                                        color: #2962FF !important;
+                                                    }
+
+                                                    .tradingview-widget-copyright a {
+                                                        text-decoration: none !important;
+                                                        color: #9db2bd !important;
+                                                    }
+
+                                                    .tradingview-widget-copyright a:visited {
+                                                        color: #9db2bd !important;
+                                                    }
+
+                                                    .tradingview-widget-copyright a:hover .blue-text {
+                                                        color: #1E53E5 !important;
+                                                    }
+
+                                                    .tradingview-widget-copyright a:active .blue-text {
+                                                        color: #1848CC !important;
+                                                    }
+
+                                                    .tradingview-widget-copyright a:visited .blue-text {
+                                                        color: #2962FF !important;
+                                                    }
+                                                </style>
+                                                <div id="Frm">
+                                                <iframe allowtransparency="true" frameborder="0" src="https://www.tradingview.com/widgetembed/?frameElementId=tradingview_44e5d&amp;symbol=NASDAQ%3AAAPL&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;studies=%5B%5D&amp;hideideas=1&amp;theme=light&amp;style=1&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=www.tradingview.com&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=NASDAQ%3AAAPL" id="Iframe" style="box-sizing: border-box; height: 523px; width: 100%;"></iframe>
+
+                                                </div>
+                                            </div>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
                                 <?php
                                 $query = mysqli_query($con, "SELECT posts.id,users.fname,users.lname,users.countrykey,users.privilege,users.photo,posts.id,posts.userId,posts.text,posts.description,posts.postDate,posts.postTime,posts.boldkeywords,posts.underlinekeywords,posts.bulletpoint from users,posts where users.status!='3' and posts.userId=users.id and posts.postStatus!='2' ORDER BY posts.id DESC");
                                 if (!$query) {
@@ -194,6 +267,7 @@ if (!$query) {
                                                                                                             ?></span></li>
                                                         </ul>
                                                     </div>
+
                                                     <div class="job_descp">
                                                         <h3 id="title-head"><?php
                                                                             echo htmlentities($datapost['text'])
@@ -249,32 +323,32 @@ if (!$query) {
 
                                                     </div>
                                                     <div class="">
-                                            <div class="gallery_pf">
-                                            <div class="row topmrg">
+                                                        <div class="gallery_pf">
+                                                            <div class="row topmrg">
 
 
-                                            <?php
-                                            $postid=$datapost['id'];
-                                             $queryy = mysqli_query($con, "SELECT path,text from images where postId='$postid'");
-                                             if (!$queryy) {
-                                                 die("E pamundur te azhurohen te dhenat: " . mysqli_connect_error());
-                                             } else {
-                                                while (($datapostt = mysqli_fetch_array($queryy))) {
-                                                    ?>
-                                                    <div class="col-lg-6">
-                                                        <div class="gallery_pt ">
-                                                            <img src="../images/<?php echo $datapostt['path'] ?>" alt="">
-                                                            <a href="../images/<?php echo $datapostt['path'] ?>" title=""><img src="images/all-out.png" alt=""></a>
+                                                                <?php
+                                                                $postid = $datapost['id'];
+                                                                $queryy = mysqli_query($con, "SELECT path,text from images where postId='$postid'");
+                                                                if (!$queryy) {
+                                                                    die("E pamundur te azhurohen te dhenat: " . mysqli_connect_error());
+                                                                } else {
+                                                                    while (($datapostt = mysqli_fetch_array($queryy))) {
+                                                                ?>
+                                                                        <div class="col-lg-6">
+                                                                            <div class="gallery_pt ">
+                                                                                <img src="../images/<?php echo $datapostt['path'] ?>" alt="">
+                                                                                <a href="../images/<?php echo $datapostt['path'] ?>" title=""><img src="images/all-out.png" alt=""></a>
+                                                                            </div>
+                                                                        </div>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                                
-                                                </div>
-                                            </div>
-                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -299,6 +373,19 @@ if (!$query) {
     <script type="text/javascript" src="lib/slick/slick.min.js"></script>
     <script type="text/javascript" src="js/scrollbar.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+    <script>
+          function copyVal(copyText2)
+    {
+      updateClipboard(copyText2);
+    }
+    function updateClipboard(newClip) {
+  navigator.clipboard.writeText(newClip).then(function() {
+    /* clipboard successfully set */
+  }, function() {
+    /* clipboard write failed */
+  });
+}
+    </script>
 </body>
 
 </html>

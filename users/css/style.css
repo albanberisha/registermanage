@@ -8093,3 +8093,8 @@ ul#myTab {
 .topmrg .col-lg-6 .gallery_pt {
     border: 1px solid #357036;
 }
+
+#Iframe {
+    overflow-y: scroll;
+    overflow-x: scroll;
+}

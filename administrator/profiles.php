@@ -30,6 +30,8 @@ if (!$query) {
         $acctype = $data2['acctype'];
         $profilephoto = $data2['photo'];
         $pofit = $data2['profit'];
+        $myrreferalcode = $data2['myemployeeCode'];
+
     } else {
         echo "Hyrje e pa autorizuar";
         exit;
@@ -72,7 +74,7 @@ if (!$query) {
                 <div class="company-title">
 
                 </div>
-                <div class="user_pro_status">
+                <div class="user_pro_status" style="padding-bottom: 0px;">
                     <form id="search-form" enctype="multipart/form-data" method="post" role="form">
                         <span id="SSearchError" class="help-block font-size-iframe " style=" float: left; color: red;">
 
@@ -87,15 +89,41 @@ if (!$query) {
                         </div>
                     </form>
                 </div>
-                <div class="companies-list">
 
-                    <div class="row" id="User-Profiles">
+                <div id="cfp">
+
+               
+                
                         <?php
                         $queryusers = mysqli_query($con, "SELECT * from users where status!='3' and privilege!='2' order by fname,lname ASC limit 30");
                         if (!$queryusers) {
                             die("E pamundur te azhurohen te dhenat: " . mysqli_connect_error());
                         } else {
                             $count3 = 1;
+                            $rowcount=mysqli_num_rows($queryusers);
+                         
+                            ?>
+                            <div class="user-specs" style="padding: 0 0 10px 0;" id="User-Profiles">
+                                                <div class="" style="margin-top: 10px; margin-bottom: 10px;">
+                                            <span>Users searched:</span>
+
+                                                    <span class="bold-span">
+                                                        <?php
+                                                        echo $rowcount;
+                                                        ?>
+                                                    </span>
+
+                                                
+                                            </div>
+
+                            <?php
+                        
+                            ?>
+                                            <div class="companies-list">
+
+                            <div class="row">
+                            <?php
+                            
                             while (($datausers = mysqli_fetch_array($queryusers))) {
                         ?>
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -116,7 +144,29 @@ if (!$query) {
                                                 ?></h3>
                                             <span>Account type:</span>
                                             <span class="bold-span"><?php echo htmlentities($datausers['acctype']) ?></span>
+                                            <div class="" style="margin-top: 10px;">
+                                            <span>Referral code:</span><br>
 
+                                                    <span class="bold-span">
+                                                    <?php
+                                                    
+                                                    $myrreferalcode=$datausers['myemployeeCode'];
+                                                    echo htmlentities($myrreferalcode) ?>
+                                                    </span>
+
+                                                
+                                            </div>
+                                            <div class="" style="margin-top: 10px;">
+                                            <?php
+                                             $uip=$_SERVER['REMOTE_ADDR']; // get the user ip
+                                             $host = $_SERVER['HTTP_HOST'];
+                                             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                                             $extra = "../../index.php"; //
+                                             $reglink="http://".$host.$uri."/".$extra."?ref=".$myrreferalcode."&reg=register";
+?>
+                                            <span>Share registration link:</span> <a onclick="copyVal('<?php echo $reglink ?>')" href="#" title=""><i class="fa fa-minus-copy"></i> Copy</a>
+<br>
+                                            </div>
                                             <div class="top-span">
                                                 <span>Status:</span>
                                                 <?php
@@ -154,12 +204,16 @@ if (!$query) {
                         <?php
 
                             }
+                            ?>
+                            </div>
+                </div>
+                            </div>
+                            <?php
                         }
 
                         ?>
 
-                    </div>
-                </div>
+                    
                 <!-- 
                 <div class="process-comm">
                     <div class="spinner">
@@ -181,7 +235,19 @@ if (!$query) {
 </body>
 
 </html>
-
+<script>
+          function copyVal(copyText2)
+    {
+      updateClipboard(copyText2);
+    }
+    function updateClipboard(newClip) {
+  navigator.clipboard.writeText(newClip).then(function() {
+    /* clipboard successfully set */
+  }, function() {
+    /* clipboard write failed */
+  });
+}
+    </script>
 <script>
      $("#search-form").submit(function(e) {
     e.preventDefault();
