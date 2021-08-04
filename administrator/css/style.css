@@ -3677,25 +3677,21 @@ footer {
 
 .close-box {
     position: absolute;
-    top: 0px;
-    right: 0px;
-    color: black;
+    top: -20px;
+    right: -20px;
+    color: #fff;
     font-size: 14px;
     text-align: center;
     width: 22px;
     height: 22px;
     line-height: 22px;
-    border: 1px solid black;
+    border: 1px solid #fff;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     -ms-border-radius: 100px;
-    -o-border-radius: 100px;
-    border-radius: 100px;
-    font-weight: 600;
 }
 
 .close-box:hover {
-    background-color: black;
     color: #fff;
 }
 

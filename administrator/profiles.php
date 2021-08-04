@@ -303,7 +303,7 @@ if (!$query) {
             var element = document.getElementById("search-form");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
             break;
