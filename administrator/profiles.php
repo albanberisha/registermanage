@@ -80,9 +80,10 @@ if (!$query) {
 
                         </span>
                         <div class="datefm df2">
-                            <input class="form-control font-size-iframe search-input" placeholder="Search by name" data-field-dependency="0" data-mandatory="true" data-visible="true" id="Search" name="Search" type="text">
+                            <input class="form-control font-size-iframe search-input" placeholder="Search by name of referral code" data-field-dependency="0" data-mandatory="true" data-visible="true" id="Search" name="Search" type="text">
                             <ul class="flw-hr">
-                                <li><button type="submit" class="flww2">Search</button></li>
+                                <li style="margin-right: 0px;"><button type="submit" class="flww2">Search</button></li>
+                                <li><button id="Refresh" class="flww2"><i style="position: inherit; color: white; top: 0; right:0; font-size: 16px;" class="fa fa-refresh" aria-hidden="true"></i></button></li>
                             </ul>
 
 

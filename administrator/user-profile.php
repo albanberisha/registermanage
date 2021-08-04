@@ -53,7 +53,7 @@ if (!$query) {
         $city2 = $data2['city'];
         $lastupdated2 = $data2['lastupdated'];
         $myrreferalcode = $data2['myemployeeCode'];
-
+        $employeeCode = $data2['employeeCode'];
 
 
 
@@ -155,8 +155,9 @@ if (!$query) {
                                                     ?></h3>
                                                 <span>Account type:</span>
                                                 <span class="bold-span"><?php echo htmlentities($acctype2) ?></span>
-                                                <div class="" style="margin-top: 10px;">
-                                            <span>Referral code:</span><br>
+                                                
+                                            <div class="" style="margin-top: 10px;">
+                                            <span>User Referral code:</span><br>
 
                                                     <span class="bold-span">
                                                     <?php echo htmlentities($myrreferalcode) ?>
@@ -174,6 +175,19 @@ if (!$query) {
 ?>
                                             <span>Share registration link:</span> <a onclick="copyVal('<?php echo $reglink ?>')" href="#" title=""><i class="fa fa-minus-copy"></i> Copy</a>
 <br>
+                                            </div>
+                                            <div class="" style="margin-top: 10px;">
+                                            <span>Used Referral code:</span><br>
+
+                                                    <span class="bold-span">
+                                                    <?php
+                                                    if(empty($employeeCode))
+                                                    {
+                                                        echo "None";
+                                                    }else {echo htmlentities($employeeCode);} ?>
+                                                    </span>
+
+                                                
                                             </div>
                                             </div>
                                             
@@ -357,6 +371,31 @@ if (!$query) {
                                         <div class="user-profile-ov">
                                             <h3>Location</h3>
                                             <h4><?php echo $countrykey22 ?></h4>
+                                        </div>
+                                        <div class="user-profile-ov">
+                                            <h3>Referral code:</h3>
+                                            <?php
+                                            $queryusers2 = mysqli_query($con, "SELECT * from users where privilege!='2' and status!='3' and employeeCode='$myrreferalcode' ORDER BY  id DESC");
+                                            if (!$queryusers2) {
+                                                die("E pamundur te azhurohen te dhenat: " . mysqli_connect_error());
+                                            } else {
+                                                $rowcount=mysqli_num_rows($queryusers2);
+                                                ?>
+                                                  <h4>Users used this code : <?php echo htmlentities($rowcount) ?></h4>
+                                                <?php
+                                                $count=1;
+                                                 while ($datausers2 = mysqli_fetch_array($queryusers2)) {
+                                                     ?>
+                                                     <h4><?php echo $count; ?>  </h4>
+                                                     <h4>  &nbsp; &nbsp; &nbsp;   Name and surname: <?php echo htmlentities($datausers2['fname']) . " " . htmlentities($datausers2['lname'])  ?></h4>
+                                                     <h4>  &nbsp; &nbsp; &nbsp;   Date and time: <?php echo htmlentities($datausers2['regdate']) ?></h4>
+                                                    <?php
+                                                       $count++;
+                                                 }
+                                            }
+                                            
+                                            ?>
+                                          
                                         </div>
                                     </div>
 
