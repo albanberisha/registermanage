@@ -207,7 +207,7 @@ if (!$query) {
                                                 </span>
                                                 <div class="message-btn">
 
-                                                    <a onclick="DeactivateUser('<?php echo $useridhash ?>')" href="#" title=""><i class="fa fa-minus-square"></i> Deactivate</a>
+                                                    <a onclick="DeactivateUser('<?php echo $useridhash ?>')" href="#f" title=""><i class="fa fa-minus-square"></i> Deactivate</a>
                                                 </div>
 
                                             <?php
@@ -219,7 +219,7 @@ if (!$query) {
                                                     ?>
                                                 </span>
                                                 <div class="message-btn">
-                                                    <a onclick="ActivateUser('<?php echo $useridhash ?>')" href="#" title=""><i class="fa fa-plus-square"></i> Activate</a>
+                                                    <a onclick="ActivateUser('<?php echo $useridhash ?>')" href="#f" title=""><i class="fa fa-plus-square"></i> Activate</a>
                                                 </div>
                                             <?php
                                             }
@@ -367,6 +367,17 @@ if (!$query) {
                                             <span>Email: <?php echo htmlentities($useremail2) ?></span>
                                             <p>Phone: <?php echo htmlentities($phone2) ?> </p>
                                             <p>Gender: <?php echo htmlentities($gender2) ?> </p>
+                                           <div id="passwordRecovered">
+                                           
+                                           </div>
+                                            <div>
+                                            
+                                            <div class="message-btn">
+
+<a onclick="Changepassword('<?php echo $useridhash ?>')" href="#f" title=""><i style="color: white;" class="fa fa-key"></i> Reset password</a>
+</div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="user-profile-ov">
                                             <h3>Location</h3>
@@ -562,6 +573,7 @@ if (!$query) {
                 <a href="#" title="" class="close-box"><i class="la la-close"></i></a>
             </div>
         </div>
+        
 
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -574,10 +586,34 @@ if (!$query) {
 
 </html>
 <script>
-          function copyVal(copyText2)
+               function copyVal(copyText2)
     {
-      updateClipboard(copyText2);
+        copyToClipboard(copyText2);
     }
+
+    function copyToClipboard(textToCopy) {
+    // navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+        // navigator clipboard api method'
+        return navigator.clipboard.writeText(textToCopy);
+    } else {
+        // text area method
+        let textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        // make the textarea out of viewport
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        return new Promise((res, rej) => {
+            // here the magic happens
+            document.execCommand('copy') ? res() : rej();
+            textArea.remove();
+        });
+    }
+}
     function updateClipboard(newClip) {
   navigator.clipboard.writeText(newClip).then(function() {
     /* clipboard successfully set */
@@ -621,6 +657,23 @@ if (!$query) {
                 } else {
                     //alert(response);
                     window.location.reload(true)
+                }
+            });
+        return false;
+    }
+    function Changepassword($id) {
+        $.ajax({
+                method: "POST",
+                url: "includes/recoverpassword.inc.php",
+                data: {
+                    userid: $id
+                }
+            })
+            .done(function(response) {
+                if (response == "error") {
+                    alert("Unauthorized delete");
+                } else {
+                    $('#passwordRecovered').html(response);
                 }
             });
         return false;

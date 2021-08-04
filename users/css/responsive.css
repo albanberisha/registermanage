@@ -323,8 +323,10 @@
         width: 100%;
     }
     .close-box {
-        top: -23px;
-        right: 2px;
+        top: 0px;
+        right: 0px;
+        color: black;
+        border: 1px solid;
     }
     .forum-links ul li {
         margin-right: 20px;

@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 error_reporting(0);
@@ -63,42 +62,41 @@ if (!$query) {
             function() {
                 $('#Recactive').load('includes/recactive.inc.php');
             }, 3000); // refresh every 10000 milliseconds
-            window.onload = function() {
-  //Check File API support
-  if (window.File && window.FileList && window.FileReader) {
-    var filesInput = document.getElementById("files");
-    filesInput.addEventListener("change", function(event) {
-      var files = event.target.files; //FileList object
-      var output = document.getElementById("result");
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        //Only pics
-        if (!file.type.match('image'))
-          continue;
-        var picReader = new FileReader();
-        picReader.addEventListener("load", function(event) {
-          var picFile = event.target;
-          var div = document.createElement("div");
-          div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
-            "title='" + picFile.name + "'/>";
-          output.insertBefore(div, null);
-        });
-        //Read the image
-        picReader.readAsDataURL(file);
-      }
-    });
-  } else {
-    console.log("Your browser does not support File API");
-  }
-}
+        window.onload = function() {
+            //Check File API support
+            if (window.File && window.FileList && window.FileReader) {
+                var filesInput = document.getElementById("files");
+                filesInput.addEventListener("change", function(event) {
+                    var files = event.target.files; //FileList object
+                    var output = document.getElementById("result");
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        //Only pics
+                        if (!file.type.match('image'))
+                            continue;
+                        var picReader = new FileReader();
+                        picReader.addEventListener("load", function(event) {
+                            var picFile = event.target;
+                            var div = document.createElement("div");
+                            div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
+                                "title='" + picFile.name + "'/>";
+                            output.insertBefore(div, null);
+                        });
+                        //Read the image
+                        picReader.readAsDataURL(file);
+                    }
+                });
+            } else {
+                console.log("Your browser does not support File API");
+            }
+        }
     </script>
     <style>
-        
         .thumbnail {
-    height: 200px;
-    margin: 10px;
-    /* width: 100%; */
-}
+            height: 200px;
+            margin: 10px;
+            /* width: 100%; */
+        }
     </style>
 
 </head>
@@ -200,14 +198,14 @@ if (!$query) {
                                         }
                                         ?>
                                     </div>
-                                    <div   class="post-st">
+                                    <div class="post-st">
                                         <ul>
                                             <li><a class="post_project" onclick="slide()" href="#" title="">Create Post</a></li>
 
                                         </ul>
                                     </div>
                                 </div>
-                               
+
                                 <?php
                                 $query = mysqli_query($con, "SELECT posts.id,users.fname,users.lname,users.countrykey,users.privilege,users.photo,posts.id,posts.userId,posts.text,posts.description,posts.postDate,posts.postTime,posts.boldkeywords,posts.underlinekeywords,posts.bulletpoint from users,posts where users.status!='3' and posts.userId=users.id and posts.postStatus!='2' ORDER BY posts.id DESC");
                                 if (!$query) {
@@ -221,7 +219,7 @@ if (!$query) {
                                                 <div class="post-bar">
                                                     <div class="post_topbar">
                                                         <div class="usy-dt">
-                                                            
+
                                                             <?php
                                                             $postprofilephoto = $datapost['photo'];
                                                             if ($postprofilephoto == Null) {
@@ -243,25 +241,25 @@ if (!$query) {
                                                             </div>
                                                         </div>
                                                         <div class="ed-opts">
-                                                    <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                                                    <ul class="ed-options">
-                                                    <?php
-                                $key = "finanzefxAB";
-                                $text = $datapost['id'];
-                                $encrypted = bin2hex(openssl_encrypt($text, 'AES-128-CBC', $key));
-                               
-                                ?>
-                                                        <li><a href="#" onclick="deletePost('<?php echo $encrypted ?>')" title="">Delete post</a></li>
-                                                       
-                                                       
-                                                       <?php
-                                                       /*
+                                                            <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+                                                            <ul class="ed-options">
+                                                                <?php
+                                                                $key = "finanzefxAB";
+                                                                $text = $datapost['id'];
+                                                                $encrypted = bin2hex(openssl_encrypt($text, 'AES-128-CBC', $key));
+
+                                                                ?>
+                                                                <li><a href="#" onclick="deletePost('<?php echo $encrypted ?>')" title="">Delete post</a></li>
+
+
+                                                                <?php
+                                                                /*
                                                                                                                <li><a href="#" class="post_project2" onclick="setActivePost('<?php echo $encrypted ?>')" title="">Attach images</a></li>
 
                                                         */
-                                                       ?>
-                                                    </ul>
-                                                </div>
+                                                                ?>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                     <div class="epi-sec">
                                                         <ul class="descp">
@@ -346,7 +344,7 @@ if (!$query) {
                                                                 ?>
                                                                         <div class="col-lg-6">
                                                                             <div class="gallery_pt ">
-                                                                                <img src="../images/<?php echo $datapostt['path'] ?>" alt="" >
+                                                                                <img src="../images/<?php echo $datapostt['path'] ?>" alt="">
                                                                                 <a href="../images/<?php echo $datapostt['path'] ?>" title=""><img src="images/all-out.png" alt=""></a>
                                                                             </div>
                                                                         </div>
@@ -373,24 +371,24 @@ if (!$query) {
                     </div>
                 </div>
                 <div class="overview-box" id="create-portfolio">
-            <div class="overview-edit">
-                <h3>Create Portfolio</h3>
-                <form>
-                    <input type="text" name="pf-name" placeholder="Portfolio Name">
-                    <div class="file-submit">
-                        <input type="file" id="file">
-                        <label for="file">Choose File</label>
+                    <div class="overview-edit">
+                        <h3>Create Portfolio</h3>
+                        <form>
+                            <input type="text" name="pf-name" placeholder="Portfolio Name">
+                            <div class="file-submit">
+                                <input type="file" id="file">
+                                <label for="file">Choose File</label>
+                            </div>
+                            <div class="pf-img">
+                                <img src="images/resources/np.png" alt="">
+                            </div>
+                            <input type="text" name="website-url" placeholder="htp://www.example.com">
+                            <button type="submit" class="save">Save</button>
+                            <button type="submit" class="cancel">Cancel</button>
+                        </form>
+                        <a href="#" title="" class="close-box"><i class="la la-close"></i></a>
                     </div>
-                    <div class="pf-img">
-                        <img src="images/resources/np.png" alt="">
-                    </div>
-                    <input type="text" name="website-url" placeholder="htp://www.example.com">
-                    <button type="submit" class="save">Save</button>
-                    <button type="submit" class="cancel">Cancel</button>
-                </form>
-                <a href="#" title="" class="close-box"><i class="la la-close"></i></a>
-            </div>
-        </div>
+                </div>
                 <div id="PostCreator" class="post-popup pst-pj">
                     <div class="post-project">
                         <h3>Create Post</h3>
@@ -399,16 +397,16 @@ if (!$query) {
                                 <div class="row overview-edit">
                                     <div class="col-lg-12">
                                         <span id="TextError" class="help-block font-size-iframe " style="float: left;"></span>
-                                        <input type="text"  placeholder="Header text" name="headerText" id="headerText">
+                                        <input type="text" placeholder="Header text" name="headerText" id="headerText">
                                     </div>
                                     <div class="col-lg-12">
                                         <span id="BulletPoint2" class="help-block font-size-iframe " style="float: left;">Type (POINT) before text to add a bullet point &nbsp;<span id="BulletPoint">.</span></span>
-                                        <textarea  placeholder="Description" name="Description" id="Description"></textarea>
+                                        <textarea placeholder="Description" name="Description" id="Description"></textarea>
                                     </div>
                                     <div class="col-lg-12">
                                         <span id="BoldKeyword" class="help-block font-size-iframe " style="float: left;">Keywords are seperated by double space. &nbsp;</span>
                                         <span id="BoldKeyword2" class="help-block font-size-iframe" style="float: left;"> Every keyword will be<span class="bold3">&nbsp; bold.</span></span>
-                                        <input type="text"  name="Keywords" id="Keywords" placeholder="ex. EURO  $  AVG and Dollar">
+                                        <input type="text" name="Keywords" id="Keywords" placeholder="ex. EURO  $  AVG and Dollar">
 
                                     </div>
 
@@ -416,23 +414,23 @@ if (!$query) {
                                         <span id="UnderlineKeyword" class="help-block font-size-iframe " style="float: left;">Underline keywords are seperated by double space. &nbsp;</span>
                                         <span id="UnderlineKeyword2" class="help-block font-size-iframe" style="float: left;"> Every keyword will be &nbsp;<span class="underline3"> underlined.</span></span>
 
-                                        <input type="text"  name="Keywords2" id="Keywords2" placeholder="ex. Listed items  average profit">
+                                        <input type="text" name="Keywords2" id="Keywords2" placeholder="ex. Listed items  average profit">
 
                                     </div>
                                     <span id="AttachphotoError" class="help-block font-size-iframe " style="float: left;">Attach photo to post</span>
                                     <div class="file-submit col-lg-12">
 
-                              
-                                        <input id='files' name="files[]" type='file' multiple/>
+
+                                        <input id='files' name="files[]" type='file' multiple />
                                         <label for="files">Choose File</label>
-                                        
+
 
                                     </div>
                                     <div class="col-lg-12">
-                                    <output id='result' />
+                                        <output id='result' />
                                     </div>
-                                    
-                                  
+
+
                                     <div class="col-lg-12">
                                         <ul>
                                             <li style="width: 100%;"><button class="active" style="width: 100%;" type="submit">Post</button></li>
@@ -469,7 +467,7 @@ if (!$query) {
                     </div>
                 </div>*/
                 ?>
-                
+
         </main>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -514,20 +512,20 @@ if (!$query) {
                         var element = document.getElementById("TextError");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
-                        case "2":
-                            document.getElementById('createpost-form').reset();
-                            $('#result').html("");
+                    case "2":
+                        document.getElementById('createpost-form').reset();
+                        $('#result').html("");
                         $message = "Unauthorized format or too big image";
                         document.getElementById("AttachphotoError").style.color = "red";
                         $('#AttachphotoError').html($message);
                         var element = document.getElementById("AttachphotoError");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -538,41 +536,40 @@ if (!$query) {
         return false;
     });
 
-    function deletePost($id)
-    {
-            $.ajax({
-                    method: "POST",
-                    url: "includes/deletepost.inc.php",
-                    data: {
-                        postid: $id
-                    }
-                })
-                .done(function(response) {
-                    if (response == "error") {
-                      alert("Unauthorized delete");
-                    } else {
-                        window.location.reload(true)
-                    }
-                });
-            return false;
-        } 
-        activepost="";
-        function setActivePost($id)
-        {
-            activepost=$id;
-        }
+    function deletePost($id) {
+        $.ajax({
+                method: "POST",
+                url: "includes/deletepost.inc.php",
+                data: {
+                    postid: $id
+                }
+            })
+            .done(function(response) {
+                if (response == "error") {
+                    alert("Unauthorized delete");
+                } else {
+                    window.location.reload(true)
+                }
+            });
+        return false;
+    }
+    activepost = "";
+
+    function setActivePost($id) {
+        activepost = $id;
+    }
 
 
-        $("#attachfile-form").submit(function(e) {
+    $("#attachfile-form").submit(function(e) {
         e.preventDefault();
-        postid=activepost;
+        postid = activepost;
         document.getElementById("AttachphotoError2").style.color = "black";
 
         $('#AttachphotoError2').html("Attach photo to post");
 
         var myform = document.getElementById("attachfile-form");
         var fd = new FormData(myform);
-        fd.append( 'postid', postid );
+        fd.append('postid', postid);
         $.ajax({
                 url: "includes/attachphoto.inc.php",
                 data: fd,
@@ -586,14 +583,14 @@ if (!$query) {
                 alert(response);
                 resp = response.split(" ").join("");
                 switch (resp) {
-                        case "1":
+                    case "1":
                         $message = "Unauthorized format or too big image";
                         document.getElementById("AttachphotoError2").style.color = "red";
                         $('#AttachphotoError2').html($message);
                         var element = document.getElementById("AttachphotoError2");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -605,13 +602,12 @@ if (!$query) {
         return false;
     });
 
-function slide()
-{
-    var element = document.getElementById("PostCreator");
-                        element.scrollIntoView({
-                            behavior: "smooth",
-                            block: "center",
-                            inline: "nearest"
-                        });
-}
+    function slide() {
+        var element = document.getElementById("PostCreator");
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest"
+        });
+    }
 </script>

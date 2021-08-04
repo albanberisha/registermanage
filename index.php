@@ -13,6 +13,7 @@ if (isset($_GET['reg'])) {
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="style/style.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -491,7 +492,7 @@ if (isset($_GET['reg'])) {
                                                 <div class="row col-md-12">
                                                     <div class="col-md-offset-4 col-md-1" style="max-width: 45px;    height: max-content;">
                                                         <div class="checker2" id="uniform-HasAcceptedTerms"><span class="checked font-size-iframe">
-                                                                <input checked="checked" class="form-control font-size-iframe" data-field-dependency="0" data-mandatory="true" data-visible="true" id="HasAcceptedTerms" name="HasAcceptedTerms" type="checkbox" value="true">
+                                                                <input style="min-height: 20px;" checked="checked" class="form-control font-size-iframe" data-field-dependency="0" data-mandatory="true" data-visible="true" id="HasAcceptedTerms" name="HasAcceptedTerms" type="checkbox" value="true">
                                                         </div>
                                                     </div>
                                                     <label class="col-md-6">
@@ -516,7 +517,7 @@ if (isset($_GET['reg'])) {
                                                     <div class="col-md-offset-4 col-md-1" style="max-width: 45px;     height: max-content;">
                                                         <div class="checker2" id="uniform-HasAcceptedRiskDisclaimer">
                                                             <span class="checked font-size-iframe">
-                                                                <input checked="checked" class="form-control font-size-iframe" data-field-dependency="0" data-mandatory="true" data-visible="true" id="HasAcceptedRiskDisclaimer" name="HasAcceptedRiskDisclaimer" type="checkbox" value="true">
+                                                                <input style="min-height: 20px;" checked="checked" class="form-control font-size-iframe" data-field-dependency="0" data-mandatory="true" data-visible="true" id="HasAcceptedRiskDisclaimer" name="HasAcceptedRiskDisclaimer" type="checkbox" value="true">
                                                         </div>
                                                     </div>
                                                     <label class="col-md-6">
@@ -743,7 +744,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("Fname");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -756,7 +757,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("Lastname");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -769,7 +770,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("Eml");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -782,7 +783,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("Eml");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -795,7 +796,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("Psw");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -808,7 +809,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("CPsw");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -821,7 +822,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("Cntry");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -834,7 +835,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("Phn");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -847,7 +848,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("AccTp");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -859,7 +860,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById(" HasAcceptedTerms");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -871,7 +872,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("HasAcceptedRiskDisclaimer");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
@@ -884,7 +885,7 @@ if (isset($_GET['reg'])) {
                         var element = document.getElementById("EmployeeCode");
                         element.scrollIntoView({
                             behavior: "smooth",
-                            block: "start",
+                            block: "center",
                             inline: "nearest"
                         });
                         break;
