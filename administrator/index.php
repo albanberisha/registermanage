@@ -127,9 +127,9 @@ if (!$query) {
                                                         <img class="imageback" src="images/empty-img.png" alt="">
                                                     <?php
                                                     } else {
-                                                        echo '<img class="imageback" style="width: 70px;
-                                                        height: 70px;
-                                                        border-radius: 35px;"  src="../images/' . $profilephoto . '" />  ';
+                                                        echo '<img class="imageback" style="width: 110px;
+                                                        height: 110px;
+                                                        border-radius: 55px;"  src="../images/' . $profilephoto . '" />  ';
                                                     }
                                                     ?>
 
