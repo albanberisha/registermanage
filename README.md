@@ -1,2 +1,2 @@
 # registermanage
-User management for profits
+User management
