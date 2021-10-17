@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2021 at 10:07 AM
+-- Generation Time: Oct 17, 2021 at 03:54 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -33,6 +33,14 @@ CREATE TABLE `deactivation` (
   `reason` longtext DEFAULT NULL,
   `deacDateTime` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `deactivation`
+--
+
+INSERT INTO `deactivation` (`id`, `userid`, `reason`, `deacDateTime`) VALUES
+(12, 16, 'Personal problems\r\n', '2021-08-10 13:38:52'),
+(13, 16, 'Personal problems', '2021-08-10 13:38:52');
 
 -- --------------------------------------------------------
 
@@ -145,7 +153,69 @@ INSERT INTO `userlog` (`userId`, `email`, `loginDate`, `loginTime`, `status`, `i
 (4, 'finanzefx@gmail.com', '2021-08-04 14:08:58', '14:08:58', 1, '154.28.188.237', 'EU', 'Europe', 'DE', 'Germany', 'Hesse', 'Frankfurt am Main'),
 (5, 'user@gmail.com', '2021-08-04 14:47:39', '14:47:39', 1, '154.28.188.237', 'EU', 'Europe', 'DE', 'Germany', 'Hesse', 'Frankfurt am Main'),
 (4, 'finanzefx@gmail.com', '2021-08-04 15:04:12', '15:04:12', 1, '154.28.188.237', 'EU', 'Europe', 'DE', 'Germany', 'Hesse', 'Frankfurt am Main'),
-(4, 'finanzefx@gmail.com', '2021-08-04 15:42:25', '15:42:25', 1, '154.28.188.237', 'EU', 'Europe', 'DE', 'Germany', 'Hesse', 'Frankfurt am Main');
+(4, 'finanzefx@gmail.com', '2021-08-04 15:42:25', '15:42:25', 1, '154.28.188.237', 'EU', 'Europe', 'DE', 'Germany', 'Hesse', 'Frankfurt am Main'),
+(4, 'finanzefx@gmail.com', '2021-08-05 15:09:54', '15:09:54', 1, '185.191.166.126', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina'),
+(4, 'finanzefx@gmail.com', '2021-08-09 10:59:15', '10:59:15', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-08-09 11:30:36', '11:30:36', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-08-09 13:39:59', '13:39:59', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-08-09 13:39:59', '13:39:59', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-08-09 15:34:34', '15:34:34', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-08-09 15:34:34', '15:34:34', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-08-09 16:15:50', '16:15:50', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(11, 'kendy@gmail.com', '2021-08-09 16:16:22', '16:16:22', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-08-09 16:17:03', '16:17:03', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(11, 'kendy@gmail.com', '2021-08-09 16:17:34', '16:17:34', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-08-09 16:17:41', '16:17:41', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-08-10 13:37:43', '13:37:43', 1, '193.176.84.242', 'EU', 'Europe', 'RO', 'Romania', 'Bucureşti', 'Bucuresti (Sector 6)'),
+(16, 'travis@gmail.com', '2021-08-10 13:38:26', '13:38:26', 1, '193.176.84.242', 'EU', 'Europe', 'RO', 'Romania', 'Bucureşti', 'Bucuresti (Sector 6)'),
+(4, 'finanzefx@gmail.com', '2021-08-10 13:39:04', '13:39:04', 1, '193.176.84.242', 'EU', 'Europe', 'RO', 'Romania', 'Bucureşti', 'Bucuresti (Sector 6)'),
+(4, 'finanzefx@gmail.com', '2021-08-10 14:48:27', '14:48:27', 1, '193.176.84.242', 'EU', 'Europe', 'RO', 'Romania', 'Bucureşti', 'Bucuresti (Sector 6)'),
+(4, 'finanzefx@gmail.com', '2021-08-10 14:53:08', '14:53:08', 1, '193.176.84.242', 'EU', 'Europe', 'RO', 'Romania', 'Bucureşti', 'Bucuresti (Sector 6)'),
+(11, 'kendy@gmail.com', '2021-08-10 14:53:18', '14:53:18', 1, '193.176.84.242', 'EU', 'Europe', 'RO', 'Romania', 'Bucureşti', 'Bucuresti (Sector 6)'),
+(4, 'finanzefx@gmail.com', '2021-08-11 00:08:36', '00:08:36', 1, '37.35.66.43', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina'),
+(4, 'finanzefx@gmail.com', '2021-09-09 23:40:09', '23:40:09', 0, '37.35.66.81', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina'),
+(4, 'finanzefx@gmail.com', '2021-09-09 23:40:11', '23:40:11', 0, '37.35.66.81', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina'),
+(4, 'finanzefx@gmail.com', '2021-09-09 23:40:15', '23:40:15', 0, '37.35.66.81', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina'),
+(4, 'finanzefx@gmail.com', '2021-09-09 23:40:18', '23:40:18', 0, '37.35.66.81', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina'),
+(4, 'finanzefx@gmail.com', '2021-09-09 23:40:21', '23:40:21', 1, '37.35.66.81', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:36:33', '15:36:33', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:36:37', '15:36:37', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:36:41', '15:36:41', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:19', '15:37:19', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:22', '15:37:22', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:25', '15:37:25', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:28', '15:37:28', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:31', '15:37:31', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:39', '15:37:39', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:39', '15:37:39', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:40', '15:37:40', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:40', '15:37:40', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:43', '15:37:43', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:44', '15:37:44', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:44', '15:37:44', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:44', '15:37:44', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:45', '15:37:45', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:47', '15:37:47', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:49', '15:37:49', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:49', '15:37:49', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:50', '15:37:50', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:52', '15:37:52', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:53', '15:37:53', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:53', '15:37:53', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(5, 'user@gmail.com', '2021-10-17 15:37:54', '15:37:54', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(8, 'jon@gmail.com', '2021-10-17 15:38:00', '15:38:00', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(8, 'jon@gmail.com', '2021-10-17 15:38:02', '15:38:02', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(8, 'jon@gmail.com', '2021-10-17 15:38:04', '15:38:04', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(8, 'jon@gmail.com', '2021-10-17 15:38:05', '15:38:05', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(8, 'jon@gmail.com', '2021-10-17 15:38:05', '15:38:05', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(8, 'jon@gmail.com', '2021-10-17 15:38:05', '15:38:05', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(8, 'jon@gmail.com', '2021-10-17 15:38:06', '15:38:06', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:40:04', '15:40:04', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:40:04', '15:40:04', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:40:05', '15:40:05', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:40:05', '15:40:05', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:40:05', '15:40:05', 0, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined'),
+(4, 'finanzefx@gmail.com', '2021-10-17 15:40:24', '15:40:24', 1, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined');
 
 -- --------------------------------------------------------
 
@@ -186,16 +256,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`, `countrykey`, `phone`, `gender`, `acctype`, `regdate`, `ipAddress`, `continentCode`, `continentName`, `countryCode`, `countryName`, `stateProv`, `city`, `status`, `privilege`, `lastupdated`, `photo`, `coverphoto`, `profit`, `employeeCode`, `myemployeeCode`) VALUES
-(4, 'Finanzefx', '', 'finanzefx@gmail.com', '$2y$10$eOIYALzANJt936pWHrUpkOo3Bi.AkNY25qx9CEr91W9kg06G/N9f2', 'Tajikistan', '1235 76598', 'm', 'Business', '2021-07-27 15:38:43', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '2', '2021-07-29 14:01:32', 'imgprof2021-07-30l3.png', NULL, NULL, NULL, NULL),
+(4, 'Admin', '', 'admin@gmail.com', '$2y$10$hSo/ghXllzWxcBIx0/NvRewFArcBtSR1XFYqe1iipIYThNTGT2.tq', 'Tajikistan', '1235 76598', 'm', 'Business', '2021-07-27 15:38:43', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '2', '2021-07-29 14:01:32', 'imgprof2021-07-30l3.png', NULL, NULL, NULL, NULL),
 (5, 'User', 'User', 'user@gmail.com', '$2y$10$rWYJ0MJOpapo49yzFeLQ2O.t9xfPxi2MMBTp5Tb1ejiKt6cERYIA.', 'Andorra', '256 9862', 'm', 'Business Plus', '2021-07-27 15:40:00', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '3', '2021-07-31 15:52:37', 'imgprof2021-07-30pexels-simon-robben-614810.jpg', NULL, '125.00', NULL, 'FINFX3LO5'),
 (8, 'Jon', 'Olsson', 'jon@gmail.com', '$2y$10$Pyon/bxOvKNlksDfYyI4QeGVYi4vpQomgOYbvEDX8NsFlgid9vQAi', 'United States', '645 6452', 'm', 'Normal User', '2021-07-30 13:12:37', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '3', '2021-07-30 14:03:47', 'imgprof2021-07-30tobey-maguire-face-blue-eyes.jpg', NULL, NULL, NULL, 'FINFX3LO8'),
 (9, 'Made', 'Olsson', 'made@gmail.com', '$2y$10$1/.qYQBb9YBmSnecd7fMy..p5kRE3DwNVdKGpav4bgOay97wY7yym', 'Barbados', '1123123 213123', 'f', 'STANDARD', '2021-07-30 13:19:42', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '3', NULL, NULL, NULL, '120.00', NULL, 'FINFX3LO9'),
 (10, 'Lena', 'Scot', 'lena@gmail.com', '$2y$10$SCqe5wfUw5rhQV6ATp8jiuiCdZLDP6pNBWuKXkI5svzV/DklCWwwG', 'Solomon Islands', '421 124124', 'f', 'Professional', '2021-07-30 13:33:13', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '3', NULL, NULL, NULL, NULL, NULL, 'FINFX3LO10'),
-(11, 'Kendy', 'Shady', 'kendy@gmail.com', '$2y$10$mHlgIZn37lXsoMXbCVKThuu71dk1bWmpMDEZJtbszGk00lRzG3Vl2', 'Belize', '2312 12312', 'm', 'Business', '2021-07-30 13:34:05', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '3', '2021-08-04 14:06:39', NULL, NULL, NULL, NULL, 'FINFX3LO11'),
+(11, 'Kendy', 'Shady', 'kendy@gmail.com', '$2y$10$mHlgIZn37lXsoMXbCVKThuu71dk1bWmpMDEZJtbszGk00lRzG3Vl2', 'Venezuela', '2312 12312', 'm', 'Business', '2021-07-30 13:34:05', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 1, '3', '2021-08-04 14:06:39', NULL, NULL, '520.34', NULL, 'FINFX3LO11'),
 (12, 'Bride', 'Mac', 'bride@gmail.com', '$2y$10$uvVjX.WtOLQuIwauoL1xDeMOe7sfCaKn72wV3jhsCMidFyy.Jls6i', 'Barbados', '213 123', 'm', 'Business Plus', '2021-07-30 13:34:38', '185', 'EU', 'Europe', 'XK', 'Kosovo', 'Pristina', 'Pristina', 3, '3', NULL, NULL, NULL, NULL, NULL, 'FINFX3LO12'),
 (13, 'Rocky', 'Bradly', 'rocky@gmail.com', '$2y$10$Q1ACpPQiZ6MRRA824JihWeA8Ty6Ja56q8EmOpu5fVStUWqKkBEKWS', 'Belgium', '43324 3242', 'm', 'STANDARD', '2021-07-31 13:47:36', '154', 'EU', 'Europe', 'DE', 'Germany', 'Hesse', 'Frankfurt am Main', 1, '3', NULL, NULL, NULL, NULL, NULL, 'FINFX3LO13'),
 (15, 'Phil', 'Jones', 'phil@gmail.com', '$2y$10$8vIrViNbTJYz.g8kUCyww.hoexWIC/reDuFVABnUUcAAX.TjHbIQi', 'Belarus', '12312 123123', 'm', 'Business Plus', '2021-07-31 13:50:37', '154.28.188.217', 'EU', 'Europe', 'DE', 'Germany', 'Hesse', 'Frankfurt am Main', 1, '3', NULL, NULL, NULL, NULL, NULL, 'FINFX3LO15'),
-(16, 'Travis', 'Scot', 'travis@gmail.com', '$2y$10$txOVk4xdoMLXv0y7ky494eh0X9uGmakZV2CQotFi6HDJSiD79ivRy', 'American Samoa', '213 123123', 'm', 'Business Plus', '2021-07-31 14:19:07', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 1, '3', '2021-07-31 15:26:15', NULL, NULL, '415.00', 'FINFX3LO19', 'FINFX3LO16'),
+(16, 'Travis', 'Scot', 'travis@gmail.com', '$2y$10$txOVk4xdoMLXv0y7ky494eh0X9uGmakZV2CQotFi6HDJSiD79ivRy', 'American Samoa', '213 123123', 'm', 'Business Plus', '2021-07-31 14:19:07', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 3, '3', '2021-07-31 15:26:15', NULL, NULL, '415.00', 'FINFX3LO19', 'FINFX3LO16'),
 (17, 'Rocky', 'Adkins', 'rocky2@gmail.com', '$2y$10$u.81xmFO0GJAmWqifl92CeDzB4oNwFFxH77E4A..toneMABjvmQW6', 'Belgium', '3124 124124', 'm', 'Normal User', '2021-08-03 13:38:19', '154.13.1.223', 'EU', 'Europe', 'DE', 'Germany', 'Berlin', 'Berlin', 1, '3', NULL, NULL, NULL, NULL, 'FINFX3LO19', 'FINFX3LO17'),
 (19, 'Ricky', 'Jon', 'ricky@gmail.com', '$2y$10$YG.3KMfPqLq5DDbuvABp5u4nqqLHxO1KguSgWuNwQXLFRCL9cbrd6', 'Belize', '124124 1244', 'm', 'Professional', '2021-08-03 13:50:29', '154.13.1.223', 'EU', 'Europe', 'DE', 'Germany', 'Berlin', 'Berlin', 1, '3', '2021-08-04 11:06:17', NULL, NULL, NULL, NULL, 'FINFX3LO19');
 
@@ -235,7 +305,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `deactivation`
 --
 ALTER TABLE `deactivation`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `images`
