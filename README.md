@@ -23,6 +23,11 @@ mysql->import->find profitmanagement.sql in directoriee
 
 In your browser search the project ex:http://localhost/registermanage/
 
+##
+Account:
+Username: Admin
+Password: admin1234
+
 ## Authors
 
 * **Alban Berisha** - *Initial work* - [AlbanBerisha](https://github.com/albanberisha)
